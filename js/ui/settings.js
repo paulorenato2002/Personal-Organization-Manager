@@ -203,6 +203,7 @@
             }
           },
         })),
+        h('button', { class: 'btn small', 'data-act': 'abrir-cliente', onClick: () => root.App.clients.open(client.id) }, 'Abrir'),
         h('button', {
           class: 'btn small danger',
           'data-act': 'excluir-cliente',

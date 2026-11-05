@@ -72,6 +72,29 @@ test('adição rápida de texto vazio não cria nada', () => {
   assert.equal(store.getState().items.length, 0);
 });
 
+test('adição dentro do cliente usa o texto inteiro como título', () => {
+  const { store, sectorId } = setup();
+  const client = store.addClient('ACME');
+  const a = store.quickAdd({ kind: 'pontual', sectorId, clientId: client.id, text: ' revisar - urgente ' });
+  assert.equal(a.title, 'revisar - urgente');
+  assert.equal(a.clientId, client.id);
+  assert.equal(store.getState().clients.length, 1);
+  const r = store.quickAdd({ kind: 'rotina', sectorId, clientId: client.id, text: 'conferir' });
+  assert.equal(r.clientId, client.id);
+  assert.deepEqual(r.freq, { type: 'daily' });
+  assert.equal(store.quickAdd({ kind: 'pontual', sectorId, clientId: client.id, text: '  ' }), null);
+});
+
+test('adição aceita data de entrega e, sem ela, usa hoje', () => {
+  const { store, sectorId } = setup();
+  const a = store.quickAdd({ kind: 'pontual', sectorId, text: 'x', dueDate: '2026-11-20' });
+  assert.equal(a.dueDate, '2026-11-20');
+  const b = store.quickAdd({ kind: 'pontual', sectorId, text: 'y' });
+  assert.equal(b.dueDate, '2026-11-05');
+  const r = store.quickAdd({ kind: 'rotina', sectorId, text: 'z', dueDate: '2026-11-20' });
+  assert.equal(r.dueDate, undefined);
+});
+
 test('rotina nasce diária a partir de hoje', () => {
   const { store, sectorId } = setup();
   const r = store.quickAdd({ kind: 'rotina', sectorId, text: 'conciliar' });

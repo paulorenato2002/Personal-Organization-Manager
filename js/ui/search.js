@@ -1,10 +1,9 @@
 (function (root) {
   const { h, shell, ui } = root.App;
-  const query = { text: '', clientId: null };
+  const query = { text: '' };
 
   function matches(item, clients) {
     if (item.deletedAt || item.doneAt) return false;
-    if (query.clientId) return item.clientId === query.clientId;
     const needle = query.text.toLowerCase();
     const client = clients.find((c) => c.id === item.clientId);
     return [item.title, item.notes, client && client.name].some((t) => t && t.toLowerCase().includes(needle));
@@ -12,22 +11,16 @@
 
   function setQuery(text) {
     query.text = text.trim();
-    query.clientId = null;
     if (query.text) shell.navigate('busca');
     else if (shell.current() === 'busca') shell.navigate('quadro');
   }
 
-  function openClient(clientId) {
-    query.text = '';
-    query.clientId = clientId;
-    shell.navigate('busca');
-  }
+  const openClient = (clientId) => root.App.clients.open(clientId);
 
   function render(container, store) {
     const { items, clients, sectors, sessions } = store.getState();
     const found = items.filter((i) => matches(i, clients));
-    const client = clients.find((c) => c.id === query.clientId);
-    const title = client ? client.name : `Busca: ${query.text}`;
+    const title = `Busca: ${query.text}`;
     const groups = new Map();
     found.forEach((item) => {
       if (!groups.has(item.sectorId)) groups.set(item.sectorId, []);

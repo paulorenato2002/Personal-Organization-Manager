@@ -249,6 +249,11 @@ Estas decisões substituem o que estiver diferente nas outras seções:
 - **Perfil:** o símbolo pessoal vira um selo no canto da foto.
 - **Modelo padrão:** o repositório leva só um modelo fictício. Dados pessoais ficam em `organizador-dados*.json`, fora do Git, e entram por Importar.
 
+## 8.2 Clientes e data de entrega
+
+- **Aba Clientes:** lista os clientes com contagens. Cada cliente tem uma página com colunas Rotinas e Demandas, campos para adicionar e escolha do setor. Etiqueta e Ajustes abrem essa página.
+- **Data de entrega:** é a data da pontual (`dueDate`), não um campo separado. A adição rápida de demandas mostra a data ao focar, começando em hoje. A entrega define quando a tarefa entra em Hoje e quando vence.
+
 ## 9. Testes
 
 - **Automáticos (`node --test`):** recorrência (diária, semanal, mensal, dia 31 em meses curtos, fevereiro bissexto, ciclos atrasados), pendências, adição rápida e cumprimento de hábitos.

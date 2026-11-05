@@ -14,6 +14,7 @@
       return { text: `${fmt.relative(day, today)} ${item.start.slice(11, 16)}` };
     }
     if (!item.dueDate) return { text: '' };
+    // Prazo das pontuais é a data de entrega.
     if (!item.doneAt && item.dueDate < today) return { text: `atrasada · ${fmt.short(item.dueDate)}`, late: true };
     return { text: fmt.relative(item.dueDate, today) };
   }
@@ -44,7 +45,10 @@
       }, '✓'),
       clientTag(item, store),
       h('button', { class: 'tx', title: item.title, onClick: () => root.App.panel.open(item.id) }, item.title),
-      due.text ? h('span', { class: `due${due.late ? ' late' : ''}` }, due.text) : null);
+      due.text ? h('span', {
+        class: `due${due.late ? ' late' : ''}`,
+        title: item.kind === 'pontual' && item.dueDate ? `Entrega: ${fmt.short(item.dueDate)}` : null,
+      }, due.text) : null);
   }
 
   function sectorName(store, sectorId) {
@@ -69,6 +73,39 @@
       total ? `${done} de ${total} feitas hoje` : 'Nada para hoje');
   }
 
+  // Campo de adição rápida. Em demandas, a data de entrega aparece ao focar o campo.
+  function quickField(store, { kind, placeholder, key, clientId, getSector }) {
+    const today = store.today();
+    const hasDate = kind === 'pontual';
+    const date = hasDate ? h('input', {
+      class: 'qa-date',
+      type: 'date',
+      min: today,
+      value: today,
+      title: 'Data de entrega',
+      'aria-label': 'Data de entrega',
+      'data-key': `${key}-data`,
+      onKeydown: (event) => { if (event.key === 'Enter') submit(); },
+    }) : null;
+    const input = h('input', {
+      class: 'qa',
+      placeholder,
+      'aria-label': placeholder,
+      'data-key': key,
+      'data-keep-value': '',
+      onKeydown: (event) => { if (event.key === 'Enter') submit(); },
+    });
+    function submit() {
+      const text = input.value;
+      if (!text.trim()) return;
+      input.value = '';
+      input.focus();
+      const dueDate = date && date.value >= today ? date.value : undefined;
+      store.quickAdd({ kind, sectorId: getSector(), text, clientId, dueDate });
+    }
+    return h('div', { class: 'qa-wrap' }, input, date);
+  }
+
   function pendRow(item, store) {
     const { shell } = root.App;
     const today = store.today();
@@ -86,7 +123,7 @@
         h('input', {
           type: 'date',
           min: today,
-          'aria-label': `Outra data para ${item.title}`,
+          'aria-label': `Outra data de entrega para ${item.title}`,
           'data-act': 'data',
           // Ao digitar, o navegador avisa com o ano incompleto: só vale data de hoje em diante.
           onChange: (e) => { if (e.target.value >= today) { store.movePontual(item.id, e.target.value); moved(); } },
@@ -133,5 +170,5 @@
     });
   }
 
-  Object.assign(root.App.ui, { itemRow, dueLabel, sectorName, sectorOptions, progressBar, pendingGroups });
+  Object.assign(root.App.ui, { itemRow, dueLabel, sectorName, sectorOptions, progressBar, pendingGroups, quickField });
 })(globalThis);

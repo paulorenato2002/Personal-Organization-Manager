@@ -1,7 +1,7 @@
 (function (root) {
   const { h, persist } = root.App;
   const views = {};
-  const TABS = [['quadro', 'Quadro'], ['hoje', 'Hoje'], ['agenda', 'Agenda'], ['metas', 'Metas']];
+  const TABS = [['quadro', 'Quadro'], ['hoje', 'Hoje'], ['agenda', 'Agenda'], ['metas', 'Metas'], ['clientes', 'Clientes']];
   const FONTS = {
     Manrope: "'Manrope', 'Segoe UI', sans-serif",
     'Instrument Sans': "'Instrument Sans', 'Segoe UI', sans-serif",
@@ -76,7 +76,7 @@
 
   function renderTopbar() {
     el.tabs.replaceChildren(...TABS.map(([name, label]) => h('button', {
-      class: `tab${current === name ? ' on' : ''}`,
+      class: `tab${current === name || (current === 'cliente' && name === 'clientes') ? ' on' : ''}`,
       onClick: () => navigate(name),
     }, label)));
     const select = h('select', {

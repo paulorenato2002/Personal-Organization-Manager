@@ -342,3 +342,20 @@ button.cell:hover { transform: scale(1.18); outline: 1.5px solid var(--text); }
   .today-card { grid-template-columns: 1fr; }
   .day-columns { grid-template-columns: 1fr; }
 }
+
+/* Clientes */
+.client-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; align-items: stretch; }
+.client-card { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; text-align: left; padding: 16px 18px; transition: background .12s; }
+.client-card:hover { background: var(--hover); }
+.client-card .tag { max-width: 100%; font-size: .78rem; padding: 3px 10px; }
+.client-card small { color: var(--muted); font-size: .76rem; }
+.client-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.client-sector { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--muted); }
+.client-sector .session-select { margin: 0; color: var(--text); }
+.result-group.small { font-size: .74rem; font-weight: 600; color: var(--muted); margin-top: 8px; }
+
+/* Adição rápida com data de entrega */
+.qa-wrap { display: flex; align-items: center; gap: 8px; }
+.qa-wrap .qa { flex: 1; min-width: 0; }
+.qa-date { display: none; flex: none; width: 124px; border: 0; background: var(--field); border-radius: 99px; padding: 3px 8px; font-size: .72rem; }
+.qa-wrap:focus-within .qa-date { display: block; }

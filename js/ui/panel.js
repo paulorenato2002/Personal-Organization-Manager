@@ -40,11 +40,12 @@
 
   function pontualFields(item) {
     return h('div', { class: 'row' },
-      field('Data', h('input', {
+      field('Data de entrega', h('input', {
         type: 'date',
         'data-key': 'p-date',
         value: item.dueDate || '',
-        onChange: (e) => store().movePontual(item.id, e.target.value || null),
+        // Ao digitar, o navegador avisa com o ano incompleto.
+        onChange: (e) => { if (!e.target.value || e.target.value >= '2000') store().movePontual(item.id, e.target.value || null); },
       })),
       h('div', { style: { flex: '0 0 auto', 'margin-bottom': '12px' } },
         h('button', { class: 'btn', disabled: !item.dueDate, onClick: () => store().movePontual(item.id, null) }, 'Sem data')));

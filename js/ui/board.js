@@ -25,19 +25,7 @@
   }
 
   function quickInput(store, sectorId, kind, placeholder) {
-    return h('input', {
-      class: 'qa',
-      placeholder,
-      'aria-label': placeholder,
-      'data-key': `qa-${sectorId}-${kind}`,
-      'data-keep-value': '',
-      onKeydown: (event) => {
-        if (event.key !== 'Enter') return;
-        const text = event.target.value;
-        event.target.value = '';
-        store.quickAdd({ kind, sectorId, text });
-      },
-    });
+    return ui.quickField(store, { kind, placeholder, key: `qa-${sectorId}-${kind}`, getSector: () => sectorId });
   }
 
   async function renameSector(store, sector) {

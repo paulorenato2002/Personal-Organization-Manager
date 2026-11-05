@@ -57,11 +57,22 @@
       return { dueDate: today() };
     }
 
-    function quickAdd({ kind, sectorId, text }) {
-      const parsed = quickadd.parse(text);
-      if (!parsed) return null;
-      const client = parsed.clientName ? ensureClient(parsed.clientName) : null;
-      const item = { ...baseItem(kind, sectorId, parsed.title, client && client.id), ...kindFields(kind) };
+    // Com clientId (dentro da página do cliente), o texto inteiro é o título.
+    function quickAdd({ kind, sectorId, text, clientId, dueDate }) {
+      let title;
+      let ownerId = clientId;
+      if (clientId) {
+        title = String(text || '').trim();
+        if (!title) return null;
+      } else {
+        const parsed = quickadd.parse(text);
+        if (!parsed) return null;
+        title = parsed.title;
+        const client = parsed.clientName ? ensureClient(parsed.clientName) : null;
+        ownerId = client && client.id;
+      }
+      const item = { ...baseItem(kind, sectorId, title, ownerId), ...kindFields(kind) };
+      if (kind === 'pontual' && dueDate) item.dueDate = dueDate;
       state.items = [...state.items, item];
       emit();
       return item;

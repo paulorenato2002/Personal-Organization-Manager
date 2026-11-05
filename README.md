@@ -18,7 +18,9 @@ No campo de cada coluna, escreva e dê Enter:
 ACME - enviar boletos
 ```
 
-O texto antes de ` - ` vira a etiqueta do cliente. Sem esse separador, a demanda fica sem cliente. Clique na demanda para ver os detalhes.
+O texto antes de ` - ` vira a etiqueta do cliente. Sem esse separador, a demanda fica sem cliente. Ao focar o campo de demanda, aparece a data de entrega, que começa em hoje. Clique na demanda para ver os detalhes.
+
+Na aba Clientes, cada cliente tem sua página, com as rotinas e demandas dele e campos para adicionar novas.
 
 ## Onde os dados ficam
 
