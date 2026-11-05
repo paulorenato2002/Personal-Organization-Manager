@@ -164,7 +164,7 @@
     const { profile, sectors } = store.getState();
     const sessionId = shell.currentSession();
     const siblings = sectors.filter((s) => s.sessionId === sessionId).sort((a, b) => a.order - b.order);
-    const title = `${greeting()}${profile.name ? `, ${profile.name}` : ''}`;
+    const title = `${greeting()}${profile.name ? `, ${profile.name}` : ''}${profile.symbol ? ` ${profile.symbol}` : ''}`;
     container.append(
       h('div', { class: 'head compact' }, h('h1', {}, title)),
       ui.progressBar(store),
