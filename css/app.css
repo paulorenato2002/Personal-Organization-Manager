@@ -200,8 +200,13 @@ input[type='range'], input[type='checkbox'] { accent-color: var(--accent); }
 .day-head { display: flex; align-items: center; gap: 8px; font-weight: 700; margin-bottom: 8px; flex-wrap: wrap; }
 .day-head .btns { margin-left: auto; display: flex; gap: 6px; }
 .pend-row { display: flex; align-items: center; gap: 9px; padding: 6px 0; border-top: 1px solid var(--line); flex-wrap: wrap; }
-.pend-row .tx { min-width: 160px; }
-.pend-actions { display: flex; gap: 5px; align-items: center; margin-left: auto; }
+.pend-actions { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; width: 100%; }
+.pend-group + .pend-group { margin-top: 12px; }
+.pend-group .day-head { font-size: .78rem; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+.pend-group .day-head .btn.small { padding: 2px 8px; font-size: .7rem; }
+.day-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.day-columns .stack { max-width: none; }
+.col-heading { font-size: .95rem; font-weight: 700; }
 .pend-actions input[type='date'] { border: 0; background: var(--field); border-radius: 99px; padding: 3px 8px; font-size: .76rem; }
 .hist-kind { font-size: .72rem; font-weight: 600; color: var(--muted); margin: 8px 0 2px; }
 .hist-line { display: flex; gap: 8px; align-items: center; padding: 3px 0; font-size: .85rem; }
@@ -281,7 +286,7 @@ button.cell:hover { transform: scale(1.18); outline: 1.5px solid var(--text); }
 .legend .cell { width: 13px; height: 13px; border-radius: 4px; }
 
 /* Card Hoje no Quadro */
-.today-card { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 28px; margin-bottom: 14px; padding-top: 18px; }
+.today-card { display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr); gap: 24px; margin-bottom: 14px; padding-top: 18px; }
 .today-stats { display: flex; align-items: center; gap: 20px; }
 .donut-wrap { position: relative; width: 148px; height: 148px; flex: none; }
 .donut {
@@ -297,7 +302,7 @@ button.cell:hover { transform: scale(1.18); outline: 1.5px solid var(--text); }
 .metric b { display: block; font-size: 1.3rem; font-weight: 700; line-height: 1.1; }
 .metric small { font-size: .72rem; color: var(--muted); }
 .box-head.plain { margin: 0 0 4px; padding: 0; }
-.today-scroll { max-height: 190px; overflow-y: auto; padding-right: 6px; }
+.today-scroll { max-height: 230px; overflow-y: auto; padding-right: 6px; }
 .today-add { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
 .today-add .qa { flex: 1; min-width: 0; }
 .today-add .session-select { margin: 0; font-weight: 500; font-size: .76rem; padding: 5px 10px; max-width: 210px; }
@@ -335,4 +340,5 @@ button.cell:hover { transform: scale(1.18); outline: 1.5px solid var(--text); }
   .habit { grid-template-columns: 1fr auto; }
   .metas-groups { grid-template-columns: 1fr; }
   .today-card { grid-template-columns: 1fr; }
+  .day-columns { grid-template-columns: 1fr; }
 }

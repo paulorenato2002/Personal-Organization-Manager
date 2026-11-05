@@ -69,5 +69,69 @@
       total ? `${done} de ${total} feitas hoje` : 'Nada para hoje');
   }
 
-  Object.assign(root.App.ui, { itemRow, dueLabel, sectorName, sectorOptions, progressBar });
+  function pendRow(item, store) {
+    const { shell } = root.App;
+    const today = store.today();
+    const moved = () => shell.toast(`"${item.title}" movida`, { undo: () => store.undo() });
+    const client = store.getState().clients.find((c) => c.id === item.clientId);
+    return h('div', { class: 'pend-row', 'data-pend': item.id },
+      client ? h('button', {
+        class: 'tag',
+        style: { '--tag': client.color },
+        onClick: () => root.App.search.openClient(client.id),
+      }, client.name) : null,
+      h('button', { class: 'tx', title: item.title, onClick: () => root.App.panel.open(item.id) }, item.title),
+      h('div', { class: 'pend-actions' },
+        h('button', { class: 'btn small primary', 'data-act': 'hoje', onClick: () => { store.movePontual(item.id, today); moved(); } }, 'Para hoje'),
+        h('input', {
+          type: 'date',
+          min: today,
+          'aria-label': `Outra data para ${item.title}`,
+          'data-act': 'data',
+          // Ao digitar, o navegador avisa com o ano incompleto: só vale data de hoje em diante.
+          onChange: (e) => { if (e.target.value >= today) { store.movePontual(item.id, e.target.value); moved(); } },
+        }),
+        h('button', { class: 'btn small', 'data-act': 'semdata', onClick: () => { store.movePontual(item.id, null); moved(); } }, 'Sem data'),
+        h('button', {
+          class: 'btn small danger',
+          'data-act': 'excluir',
+          onClick: () => {
+            store.deleteItem(item.id);
+            shell.toast(`"${item.title}" excluída`, { undo: () => store.undo() });
+          },
+        }, 'Excluir')));
+  }
+
+  // Vencidas agrupadas pelo dia, usadas no Quadro e na tela Hoje.
+  function pendingGroups(store, { boxed = false } = {}) {
+    const { shell } = root.App;
+    const today = store.today();
+    return pending.pendingByDay(store.getState().items, today).map(({ date, items }) => {
+      const relative = fmt.relative(date, today);
+      const label = relative === fmt.short(date) ? fmt.cap(fmt.long(date)) : `${fmt.cap(relative)}, ${fmt.long(date)}`;
+      return h('section', { class: boxed ? 'box' : 'pend-group', 'data-day': date },
+        h('div', { class: 'day-head' },
+          h('span', {}, `${label} (${items.length})`),
+          h('div', { class: 'btns' },
+            h('button', {
+              class: 'btn small',
+              'data-act': 'mover-tudo',
+              onClick: () => {
+                store.moveDay(date, today);
+                shell.toast('Tudo movido para hoje', { undo: () => store.undo() });
+              },
+            }, 'Mover tudo para hoje'),
+            h('button', {
+              class: 'btn small danger',
+              'data-act': 'excluir-tudo',
+              onClick: () => {
+                store.deleteDay(date);
+                shell.toast('Dia excluído', { undo: () => store.undo() });
+              },
+            }, 'Excluir tudo'))),
+        items.map((item) => pendRow(item, store)));
+    });
+  }
+
+  Object.assign(root.App.ui, { itemRow, dueLabel, sectorName, sectorOptions, progressBar, pendingGroups });
 })(globalThis);

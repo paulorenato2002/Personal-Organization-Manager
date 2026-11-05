@@ -153,7 +153,11 @@
             'aria-label': 'Setor da tarefa',
             'data-key': 'qa-hoje-setor',
             onChange: (event) => { todaySector = event.target.value; },
-          }, options.map(([id, label]) => h('option', { value: id, selected: id === todaySector }, label)))) : null));
+          }, options.map(([id, label]) => h('option', { value: id, selected: id === todaySector }, label)))) : null),
+      h('div', { class: 'today-pending', 'data-pend-col': '1' },
+        h('div', { class: 'box-head plain' }, `Vencidas${late ? ` (${late})` : ''}`),
+        h('div', { class: 'today-scroll' },
+          late ? ui.pendingGroups(store) : h('p', { class: 'hint' }, 'Nada vencido. Tudo em dia.'))));
   }
 
   function render(container, store) {
