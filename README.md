@@ -72,4 +72,4 @@ Não instala nada, funciona sem internet e os dados ficam no seu navegador (faç
 
 ## Licenças
 
-As letras em `fonts/` são distribuídas sob a SIL Open Font License. Veja os arquivos `LICENSE-*` na pasta.
+O código deste repositório é distribuído sob a licença MIT (arquivo [`LICENSE`](LICENSE)). As letras em `fonts/` e em `esboco-planner/fonts/` são distribuídas sob a SIL Open Font License; veja os arquivos `LICENSE-*` em cada pasta.
