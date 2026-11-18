@@ -1,6 +1,6 @@
 # Personal Organization Manager
 
-Organizador pessoal leve: demandas por setor e cliente, rotinas, compromissos, agenda e metas diárias com grade de desempenho. Funciona direto do disco, sem instalar nada e sem internet. Os dados ficam só no seu computador.
+Organizador pessoal leve: demandas por setor e cliente, rotinas, compromissos, agenda e metas diárias com grade de desempenho. Funciona direto do disco, sem instalar nada e sem internet. Os dados ficam só no seu computador. Este repositório também traz o **Caderno**, um planner híbrido de papel e tela, na pasta [`esboco-planner/`](esboco-planner/) (veja a seção Caderno, mais abaixo).
 
 ## Como abrir
 
@@ -60,6 +60,15 @@ Precisa do Node.js 22 ou mais novo.
 ```bash
 node --test "tests/*.test.js"
 ```
+
+## Caderno: planner híbrido de papel e tela
+
+A pasta [`esboco-planner/`](esboco-planner/) tem o **Caderno**: planeje na tela (ano, mês, semana e dia), imprima a folha do dia em A4 e escreva a caneta. Tem lembretes fixos (água, rotinas em lista), quadro de constância dos hábitos e objetivos em bolhas. É um esboço e funciona sozinho, sem depender do organizador acima.
+
+1. Baixe este repositório (**Code**, depois **Download ZIP**) e descompacte, ou clone com o git.
+2. Abra `esboco-planner/index.html` no Chrome ou no Edge.
+
+Não instala nada, funciona sem internet e os dados ficam no seu navegador (faça cópias em Ajustes, Seus dados). Detalhes no [LEIA-ME do Caderno](esboco-planner/LEIA-ME.md). Testes: `node --test "esboco-planner/tests/*.test.js"`.
 
 ## Licenças
 

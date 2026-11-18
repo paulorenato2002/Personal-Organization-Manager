@@ -1,0 +1,187 @@
+/* Impressão: papel branco para riscar, tinta preta, checklist simples. Fica sem camada de propósito:
+   regra sem camada vence a tela, então nada aqui precisa de !important para trocar o visual. */
+@page { size: A4 portrait; margin: 9mm 11mm; }
+@page land { size: A4 landscape; margin: 8mm 10mm; }
+
+:root, :root[data-theme='dark'], :root[data-theme='light'] {
+  color-scheme: light;
+  --desk: #fff; --paper: #fff; --ink: #000; --muted: #333; --rule: rgba(0, 0, 0, .3); --rule-strong: rgba(0, 0, 0, .7);
+  --hover: transparent; --field: transparent; --shadow-sheet: none; --shadow-pop: none; --tag-l: .45; --weekend: #000; --heat: #000;
+  /* O tema escolhido na tela grava estas três direto no <html>; no papel elas precisam ser tinta preta. */
+  --accent: #000 !important; --accent-text: #000 !important; --on-accent: #fff !important;
+}
+html { font-size: 100% !important; }
+body { background: #fff; color: #000; font-size: 10pt; min-height: 0; }
+/* Sem isto o Chrome só imprime fundos (linhas de pauta, pontos de categoria, barras) se a pessoa ligar "Gráficos de segundo plano". */
+*, *::before, *::after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+.no-print, .app-header, .app-footer, .skip, .banner, .toasts, .tools, .ctx, dialog, .boot, .year-strip, .sem-nav, .legend,
+.add-row, .x, .wk-add, .ribbon, .sheet-progress, .page-hint, .agenda-add { display: none; }
+/* Semana, mês e ano saem em A4 paisagem; dia e objetivos, em retrato.
+   O nome da página vai no body (o primeiro bloco do documento): num elemento mais fundo o Chrome abriria uma folha em branco antes. */
+body[data-view='semana'], body[data-view='mes'], body[data-view='ano'] { page: land; }
+
+.page { max-width: none; padding: 0; margin: 0; }
+.day-layout, .month-layout { display: block; }
+.paper, .box, .wk-day, .bubble, .tools-box { box-shadow: none; background: #fff; }
+
+/* Dia */
+.sheet { box-shadow: none; border-radius: 0; padding: 0; background: #fff; --fs: 10.5pt; }
+.sheet[data-size='s'] { --fs: 9pt; }
+.sheet[data-size='l'] { --fs: 12pt; }
+.sheet { --row: 7.6mm; }
+.sheet[data-spacing='compact'] { --row: 6.2mm; }
+.sheet[data-spacing='wide'] { --row: 10mm; }
+.sheet-head { padding: 0 0 3mm; margin-bottom: 1mm; border-bottom: 1.5pt solid #000; }
+.sheet-head h1 { font-size: 26pt; }
+.slot-main { padding-bottom: 0; }
+.block-body { margin-bottom: 0; }
+.slot, .sub, .blank { break-inside: avoid; }
+.sheet-body { grid-template-columns: minmax(0, 1fr) 58mm; gap: 0 5mm; }
+.sheet[data-notes='below'] .sheet-body, .sheet[data-notes='none'] .sheet-body { grid-template-columns: minmax(0, 1fr); }
+.side { padding-left: 4mm; }
+.slot { grid-template-columns: 6.5mm 13mm minmax(0, 1fr); column-gap: 1mm; }
+.slot-time { padding-top: 0; }
+.block-body { padding-left: 0; }
+.ck-box, .blank-box { width: 4.2mm; height: 4.2mm; border: .4mm solid #000; border-radius: .6mm; background: #fff; }
+.ck:checked + .ck-box { background: #fff; border-color: #000; }
+.ck:checked + .ck-box::after { border-color: #000; transform: rotate(-48deg) translate(.3mm, -.3mm) scale(1); }
+.ck-wrap { width: 6mm; height: 6mm; }
+.blank-box { margin-left: 1mm; }
+.sub.is-done .sub-text, .slot.is-done .slot-title { color: #555; }
+.tag { background: transparent; padding: 0; font-size: 8pt; font-weight: 600; color: #000; }
+.tag-dot { border-radius: 50%; background: #000; width: 1.6mm; height: 1.6mm; --tag-color: #000; }
+.sheet[data-mono='true'] { filter: grayscale(1); }
+.side { border-left: .3mm solid #000; }
+.sheet[data-notes='below'] .side, .sheet[data-notes='none'] .side { border-top: .3mm solid #000; border-left: 0; }
+.notes-area { display: none; }
+.notes-print { position: relative; display: block; min-height: calc(var(--row) * 7); }
+.notes-rules { position: absolute; inset: 0; overflow: hidden; }
+.notes-rules i { display: block; height: var(--row); border-bottom: .25mm solid rgba(0, 0, 0, .35); }
+.sheet[data-ruling='dots'] .notes-rules i { border-bottom: .3mm dotted rgba(0, 0, 0, .6); }
+.sheet[data-ruling='blank'] .notes-rules i { border-bottom-color: transparent; }
+.notes-text { position: relative; white-space: pre-wrap; line-height: var(--row); }
+.slot, .blank, .block-body .sub { border-bottom: .25mm solid rgba(0, 0, 0, .35); }
+.sheet[data-ruling='dots'] .slot, .sheet[data-ruling='dots'] .blank, .sheet[data-ruling='dots'] .block-body .sub { border-bottom: .3mm dotted rgba(0, 0, 0, .6); }
+.sheet[data-ruling='blank'] .slot, .sheet[data-ruling='blank'] .blank, .sheet[data-ruling='blank'] .block-body .sub { border-bottom-color: transparent; }
+
+/* Hábitos de contar: quadradinhos para riscar. Sem texto, sem sequência, sem link. */
+.cbox { width: 4.6mm; height: 4.6mm; border-radius: 0; }
+.cbox::after { width: 3.6mm; height: 3.6mm; border: .35mm solid #000; border-radius: .5mm; background: #fff; }
+.cbox.on::after { background: #000; }
+.habit-line { min-height: 0; margin: 0; }
+.slot.is-habit:not(.is-block) .slot-main { display: flex; flex-wrap: wrap; align-items: center; column-gap: 3mm; }
+.counter-text, .streak { display: none; }
+.counter.is-stepper .counter-text { display: inline; margin: 0; color: #000; }
+.counter.is-stepper .btn { display: none; }
+/* Quadradinhos com nome: a caixa de riscar e o nome ao lado, quebrando de linha como texto. */
+.counter.is-labeled { gap: .4mm 3mm; }
+.cbox.labeled { width: auto; height: auto; min-height: 5.2mm; gap: 1.2mm; padding: 0; }
+.cb-sq { width: 3.6mm; height: 3.6mm; border: .35mm solid #000; border-radius: .5mm; background: #fff; }
+.cbox.labeled.on .cb-sq { background: #000; }
+.cb-text, .cbox.labeled.on .cb-text { font-size: 8.5pt; font-weight: 500; color: #000; }
+/* Rotina em lista: duas colunas (5 passos e 4), um passo por linha e o número ao lado da caixa.
+   A coluna do lado passa de 58 para 76 mm para os nomes (até 17 letras) caberem numa linha só; com anotações embaixo ou sem anotações ela nem existe. */
+.counter.is-list { display: block; columns: 2; column-gap: 3mm; }
+.counter.is-list .cbox.labeled { display: flex; width: auto; min-height: 4.4mm; gap: .8mm; break-inside: avoid; }
+.counter.is-list .cb-text, .counter.is-list .cbox.labeled.on .cb-text { font-size: 8pt; }
+.cb-n { min-width: 2.2mm; font-size: 7pt; font-weight: 600; color: #000; }
+.sheet[data-notes='side']:has(.counter.is-list) .sheet-body { grid-template-columns: minmax(0, 1fr) 76mm; }
+/* Lembretes fixos: linhas de pauta e caixas para riscar; sem bolinha de categoria.
+   As linhas ficam 15% mais juntas que as da agenda (são caixas de riscar, não linhas de escrever): sem isso o dia com duas rotinas, água, refeições, treino e tarefas da casa não deixa folga na folha. */
+.sheet { --rrow: calc(var(--row) * .85); }
+.reminders { --row: var(--rrow); }
+.rem .ck-wrap { width: 5mm; height: 5mm; }
+.rem { min-height: var(--row); border-bottom: .25mm solid rgba(0, 0, 0, .35); break-inside: avoid; }
+.sheet[data-ruling='dots'] .rem { border-bottom: .3mm dotted rgba(0, 0, 0, .6); }
+.sheet[data-ruling='blank'] .rem { border-bottom-color: transparent; }
+.rem-line { min-height: var(--row); gap: 0 2mm; }
+.rem .tag-dot { display: none; }
+.rem .counter { margin: -1mm 0 1mm; }
+.rem-head h2 { margin-bottom: 1mm; }
+.rem.is-single.is-done .rem-name { text-decoration: none; }
+
+/* Semana: título e linha de foco no alto, sete colunas com o dia na cabeça e espaço pautado embaixo para escrever. */
+.view-week .page-head, .view-month .page-head, .view-year .page-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 6mm; margin: 0 0 2mm; padding-bottom: 1.5mm; border-bottom: .5mm solid #000; }
+.view-week .page-head h1, .view-month .page-head h1, .view-year .page-head h1 { font-size: 22pt; }
+.view-week .page-sub, .view-month .page-sub, .view-year .page-sub { margin: 0; color: #000; font-size: 10pt; }
+.filter-note { margin: 0 0 2mm; color: #000; font-size: 8pt; }
+.above-grid { grid-template-columns: 1fr 1fr; gap: 4mm; margin: 0 0 3mm; align-items: stretch; }
+.above-grid > .box { padding: 1.5mm 3mm 1mm; border: .3mm solid rgba(0, 0, 0, .7); border-radius: 1.5mm; box-shadow: none; }
+.above-grid > .box h2 { margin-bottom: .6mm; font-size: 9.5pt; }
+.above-grid > .box .hint { display: none; }
+.above-grid .sub { min-height: 6mm; }
+.week-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0; border: .3mm solid rgba(0, 0, 0, .7); border-radius: 1.5mm; overflow: hidden; }
+.wk-day { min-height: 124mm; padding: 1.2mm 1.5mm; gap: .8mm; border-radius: 0; border-left: .25mm solid rgba(0, 0, 0, .45); box-shadow: none; background: #fff; }
+.wk-day:first-child { border-left: 0; }
+.wk-day.is-weekend { background: color-mix(in oklab, #000 7%, #fff); }
+.wk-day.is-today { box-shadow: none; }
+.wk-head { padding-bottom: .8mm; border-bottom: .3mm solid #000; }
+.wk-wd { font-size: 7.5pt; color: #000; }
+.wk-num { font-size: 17pt; }
+.wk-flag { align-self: flex-start; font-size: 6.8pt; font-weight: 800; color: #000; border-bottom: .3mm solid #000; }
+.wk-list { gap: 0; }
+.wk-ev, .wk-ev.is-tagged, .wk-ev.is-goal { display: block; padding: .6mm 0; border-radius: 0; background: none; box-shadow: none; border-bottom: .2mm dotted rgba(0, 0, 0, .5); break-inside: avoid; }
+.wk-ev-btn { grid-template-columns: 3mm 7.5mm minmax(0, 1fr) auto; column-gap: 1mm; padding: 0; }
+.wk-time.allday:not(.is-count) { font-size: 0; }
+.wk-count.is-counter { grid-column: 4; grid-row: 1; margin-left: 1mm; white-space: nowrap; }
+.wk-ev-btn::before { content: ''; width: 2.8mm; height: 2.8mm; margin-top: .5mm; border: .3mm solid #000; border-radius: .5mm; }
+.wk-time { padding-top: .2mm; font-size: 7pt; color: #000; }
+.wk-title { font-size: 8pt; line-height: 1.2; }
+.wk-ev.is-done .wk-title { color: #555; }
+.wk-count { grid-column: 3; font-size: 6.5pt; color: #333; }
+.wk-ev > .tag { margin: 0 0 .4mm 11.5mm; font-size: 6.5pt; }
+.wk-goals { margin-top: .8mm; padding-top: .8mm; border-top: .25mm dashed rgba(0, 0, 0, .7); }
+.wk-write { display: block; flex: 1 1 12mm; min-height: 12mm; margin-top: 1mm; overflow: hidden; }
+.wk-write i { display: block; height: 6.7mm; border-bottom: .3mm solid rgba(0, 0, 0, .3); }
+/* Dias muito cheios: letra e espaços menores para a semana continuar numa folha só. */
+.week-grid[data-density='compact'] .wk-title { font-size: 7.2pt; }
+.week-grid[data-density='compact'] .wk-time { font-size: 6.4pt; }
+.week-grid[data-density='compact'] .wk-ev { padding: .35mm 0; }
+.week-grid[data-density='compact'] .wk-ev > .tag { display: none; }
+.week-grid[data-density='tight'] .wk-title { font-size: 6.5pt; line-height: 1.12; }
+.week-grid[data-density='tight'] .wk-time { font-size: 6pt; }
+.week-grid[data-density='tight'] .wk-count, .week-grid[data-density='tight'] .wk-ev > .tag { display: none; }
+.week-grid[data-density='tight'] .wk-ev { padding: .2mm 0; }
+.week-grid[data-density='tight'] .wk-write { display: none; }
+.week-grid[data-density='tight'] .wk-day { min-height: 0; }
+.week-grid[data-density='tight'] .wk-ev-btn::before { width: 2.4mm; height: 2.4mm; }
+.under-grid { grid-template-columns: 1fr 1fr; gap: 4mm; }
+.under-grid > .box, .month-side > .box { border: .3mm solid #000; border-radius: 0; box-shadow: none; padding: 2mm 3mm; }
+.blank-lines { display: block; }
+
+/* Mês */
+.month td { border: .3mm solid #000; }
+.cal-cell { min-height: 18mm; padding: 1mm; }
+.cal-cell.is-today { box-shadow: none; }
+.cal-ev { font-size: 7pt; }
+.month-side { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3mm; margin-top: 3mm; align-items: start; }
+.month-side > .box { break-inside: avoid; }
+.month-side .hint { display: none; }
+
+/* Ano: na tela os cards vêm antes do calendário; no papel o calendário vem primeiro, como antes. */
+.view-year { display: flex; flex-direction: column; }
+.view-year .page-head { order: -2; }
+.view-year .year-paper { order: -1; }
+.mini-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3mm 6mm; }
+.mini-month { break-inside: avoid; }
+.year-paper.is-semester .mini-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.mini-day { aspect-ratio: auto; height: 5.4mm; font-size: 7.5pt; min-width: 0; }
+.year-paper.is-semester .mini-day { height: 7mm; }
+.mini-day.is-today { background: #000; color: #fff; }
+.mini-day.is-active:not(.is-today) { background: transparent; }
+.mini-day.is-holiday { box-shadow: inset 0 0 0 .5mm #000; font-weight: 800; }
+.mini-day.is-optional { box-shadow: inset 0 0 0 .3mm #000; }
+.mini-day.has-ev::after { background: #000; }
+.date-list.cols { grid-template-columns: repeat(3, 1fr); font-size: 8pt; }
+.holiday-box .btn, .btn { display: none; }
+
+/* Objetivos */
+.bubbles { grid-template-columns: 1fr 1fr; gap: 6mm; }
+.pillar-zone { gap: 6mm; margin-bottom: 6mm; }
+.bubble { border: .3mm solid #000; border-radius: 2mm; break-inside: avoid; }
+.hub { background: conic-gradient(#000 calc(var(--p) * 1%), #ddd 0); }
+.bar { background: #ddd; } .bar i { background: #000; }
+.pillar-fill { background: #ccc; }
+.quad:hover, .pillar:hover { background: transparent; }
+.bubble-head .btn { display: none; }
