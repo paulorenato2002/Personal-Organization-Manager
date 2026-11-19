@@ -1,4 +1,4 @@
-// Verificação mínima da lógica de datas, feriados e recorrência. Rode: node --test esboco-planner/tests
+// Verificação mínima da lógica de datas, feriados e recorrência. Rode: node --test tests
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const D = require('../js/dates.js');

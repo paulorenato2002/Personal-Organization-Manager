@@ -1,4 +1,4 @@
-// Lembretes fixos: o registro simples, à parte da agenda. Rode: node --test "esboco-planner/tests/*.test.js"
+// Lembretes fixos: o registro simples, à parte da agenda. Rode: node --test "tests/*.test.js"
 const test = require('node:test');
 const assert = require('node:assert/strict');
 

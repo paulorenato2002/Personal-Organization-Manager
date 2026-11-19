@@ -1,39 +1,59 @@
-<!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Organizador</title>
+  <meta name="color-scheme" content="light dark">
+  <title>Caderno · esboço do planner</title>
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/print.css" media="print">
 </head>
-<body>
-  <div id="app"></div>
-  <script src="js/logic/dates.js"></script>
-  <script src="js/logic/recurrence.js"></script>
-  <script src="js/logic/pending.js"></script>
-  <script src="js/logic/quickadd.js"></script>
-  <script src="js/logic/habits.js"></script>
-  <script src="js/logic/agenda.js"></script>
-  <script src="js/data/seed.js"></script>
-  <script src="js/data/store.js"></script>
-  <script src="js/data/persist.js"></script>
-  <script src="js/data/images.js"></script>
-  <script src="js/ui/h.js"></script>
-  <script src="js/ui/dialogs.js"></script>
-  <script src="js/ui/shell.js"></script>
-  <script src="js/ui/onboarding.js"></script>
-  <script src="js/ui/item.js"></script>
-  <script src="js/ui/panel.js"></script>
-  <script src="js/ui/clients.js"></script>
-  <script src="js/ui/search.js"></script>
-  <script src="js/ui/board.js"></script>
-  <script src="js/ui/today.js"></script>
-  <script src="js/ui/agenda.js"></script>
-  <script src="js/ui/metas.js"></script>
-  <script src="js/ui/emoji.js"></script>
-  <script src="js/ui/profile.js"></script>
-  <script src="js/ui/settings.js"></script>
-  <script src="js/main.js"></script>
+<body data-view="dia">
+  <a class="skip" href="#main">Ir para o conteúdo</a>
+
+  <header class="app-header no-print">
+    <p class="brand"><span class="brand-name">Caderno</span><span class="brand-note">esboço</span></p>
+    <nav class="tabs" id="tabs" aria-label="Seções do caderno">
+      <a href="#/dia" data-view="dia">Dia</a>
+      <a href="#/semana" data-view="semana">Semana</a>
+      <a href="#/mes" data-view="mes">Mês</a>
+      <a href="#/ano" data-view="ano">Ano</a>
+      <a href="#/objetivos" data-view="objetivos">Objetivos</a>
+    </nav>
+    <button type="button" class="btn ghost" id="open-settings">Ajustes</button>
+  </header>
+
+  <div id="banner"></div>
+
+  <main id="main" class="page" tabindex="-1">
+    <p id="boot" class="boot" role="status">Abrindo o caderno…</p>
+  </main>
+
+  <footer class="app-footer no-print">
+    <p id="footer-note">Seus dados ficam só neste navegador.</p>
+  </footer>
+
+  <dialog id="modal" class="modal"></dialog>
+  <dialog id="confirm" class="modal sm"></dialog>
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+
+  <script defer src="js/dates.js"></script>
+  <script defer src="js/holidays.js"></script>
+  <script defer src="js/recur.js"></script>
+  <script defer src="js/habits.js"></script>
+  <script defer src="js/store.js"></script>
+  <script defer src="js/theme.js"></script>
+  <script defer src="js/ui.js"></script>
+  <script defer src="js/calendar.js"></script>
+  <script defer src="js/sheet-options.js"></script>
+  <script defer src="js/dialogs.js"></script>
+  <script defer src="js/view-day.js"></script>
+  <script defer src="js/view-week.js"></script>
+  <script defer src="js/view-month.js"></script>
+  <script defer src="js/view-constancia.js"></script>
+  <script defer src="js/view-year.js"></script>
+  <script defer src="js/view-goals.js"></script>
+  <script defer src="js/main.js"></script>
 </body>
 </html>

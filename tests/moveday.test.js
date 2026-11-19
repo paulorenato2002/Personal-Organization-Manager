@@ -1,4 +1,4 @@
-// Mover o dia: corrigir de vez um dia anotado na data errada (por exemplo, no ano errado). Rode: node --test "esboco-planner/tests/*.test.js"
+// Mover o dia: corrigir de vez um dia anotado na data errada (por exemplo, no ano errado). Rode: node --test "tests/*.test.js"
 const test = require('node:test');
 const assert = require('node:assert/strict');
 

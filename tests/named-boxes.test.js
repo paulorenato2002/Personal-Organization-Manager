@@ -1,4 +1,4 @@
-// Quadradinhos com nome: cada um do lembrete (ao acordar, 10h, pós almoço) marca só ele mesmo. Rode: node --test "esboco-planner/tests/*.test.js"
+// Quadradinhos com nome: cada um do lembrete (ao acordar, 10h, pós almoço) marca só ele mesmo. Rode: node --test "tests/*.test.js"
 const test = require('node:test');
 const assert = require('node:assert/strict');
 

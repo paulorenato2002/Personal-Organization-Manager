@@ -1,75 +1,41 @@
-# Personal Organization Manager
+# Caderno
 
-Organizador pessoal leve: demandas por setor e cliente, rotinas, compromissos, agenda e metas diárias com grade de desempenho. Funciona direto do disco, sem instalar nada e sem internet. Os dados ficam só no seu computador. Este repositório também traz o **Caderno**, um planner híbrido de papel e tela, na pasta [`esboco-planner/`](esboco-planner/) (veja a seção Caderno, mais abaixo).
+Planner híbrido de papel e tela: planeje na tela (ano, mês, semana e dia), imprima a folha do dia em A4 e escreva a caneta. Funciona direto do disco, sem instalar nada e sem internet. Os dados ficam só no seu navegador.
 
-## Como abrir
+É um esboço: já dá para usar, mas muda bastante de uma versão para outra. Testado no Chrome e no Edge; a impressão foi testada na visualização e em PDF, não em impressora de verdade.
 
-1. Baixe ou clone este repositório.
-2. Abra `index.html` no Chrome ou no Edge.
-3. Na primeira abertura, informe seu nome, escolha começar com o modelo pronto ou vazio e selecione a pasta dos seus dados.
+## Como usar
 
-Dica: salve o `index.html` nos favoritos para abrir com um clique.
+1. Baixe este repositório (botão **Code**, depois **Download ZIP**) e descompacte, ou clone com o git.
+2. Dê dois cliques em `index.html`. Ele abre no Chrome ou no Edge.
+3. Dica: salve a página nos favoritos para abrir com um clique.
 
-## Adicionar demandas
+## O que tem
 
-No campo de cada coluna, escreva e dê Enter:
+- **Dia:** a folha do dia, com hora, categoria e blocos de trabalho detalhados. Imprime em A4 com linhas em branco para anotar a caneta.
+- **Semana, Mês e Ano:** de 2026 a 2040, com feriados nacionais, foco de cada período e filtro por categoria.
+- **Lembretes fixos:** o que se marca todo dia sem hora (água, refeições, rotinas da manhã e da noite em lista, treino). Saem no papel como quadradinhos para riscar.
+- **Constância:** quadro de quadradinhos no estilo do gráfico de contribuições do GitHub, para ver se os hábitos estão firmes.
+- **Objetivos:** bolhas em cruz com checklist de ações, pilares como indicador e a constância ao lado.
 
-```text
-ACME - enviar boletos
-```
+Também repete tarefas (dias da semana à escolha, dia útil do mês, pular feriados e fins de semana). O guia completo, com todas as telas e limites, está no [LEIA-ME](LEIA-ME.md).
 
-O texto antes de ` - ` vira a etiqueta do cliente. Sem esse separador, a demanda fica sem cliente. Ao focar o campo de demanda, aparece a data de entrega, que começa em hoje. Clique na demanda para ver os detalhes.
+## Seus dados
 
-Na aba Clientes, cada cliente tem sua página, com as rotinas e demandas dele e campos para adicionar novas.
+Ficam no navegador deste computador. Limpar os dados do navegador, trocar de navegador ou de computador faz o caderno sumir. Em **Ajustes**, **Seus dados**, use "Baixar uma cópia" para guardar um arquivo `.json` e "Carregar uma cópia" para trazer tudo de volta.
 
-## Onde os dados ficam
+Se você usa o git, não coloque essa cópia no repositório: ela tem as suas tarefas. Os arquivos `caderno-*.json` já estão no `.gitignore`.
 
-| Local | Como funciona |
-|---|---|
-| Navegador (IndexedDB) | Salvamento principal, automático |
-| Pasta dos seus dados | Cópia automática de tudo em `organizador-dados.json`, na pasta que você escolher (Chrome e Edge) |
-| Backup manual | Exportar e Importar, em Ajustes |
-
-**Atenção:** limpar os dados do navegador apaga o salvamento principal. Mantenha uma pasta escolhida ou exporte backups.
-
-Ao reabrir o app, o navegador pode pedir um clique em "Liberar pasta" para voltar a gravar o arquivo.
-
-### Levar para outro computador
-
-1. Copie a pasta dos seus dados para o computador novo.
-2. Abra o app e selecione essa pasta. Ele pergunta se você quer usar os dados dela.
-
-Sem a pasta, use Exportar no computador atual e Importar no novo, em Ajustes.
-
-## Metas
-
-Na aba Metas, cada meta é marcada no dia: sim ou não, quantidade (ex.: 3 L de água, somando 500 ml por clique) ou lista (ex.: refeições). A grade de desempenho mostra os últimos 30 dias:
-
-| Cor | Significado |
-|---|---|
-| Verde | Cumpriu 100% da meta |
-| Amarelo | Fez uma parte |
-| Vermelho | Não fez |
-
-Clique em um quadradinho para abrir o dia e corrigir.
+Na primeira abertura, o caderno mostra dados de exemplo, só de ilustração. "Voltar ao exemplo", em Ajustes, restaura.
 
 ## Testes
 
-Precisa do Node.js 22 ou mais novo.
+Precisa do Node.js 22 ou mais novo (testado com a versão 24).
 
 ```bash
 node --test "tests/*.test.js"
 ```
 
-## Caderno: planner híbrido de papel e tela
-
-A pasta [`esboco-planner/`](esboco-planner/) tem o **Caderno**: planeje na tela (ano, mês, semana e dia), imprima a folha do dia em A4 e escreva a caneta. Tem lembretes fixos (água, rotinas em lista), quadro de constância dos hábitos e objetivos em bolhas. É um esboço e funciona sozinho, sem depender do organizador acima.
-
-1. Baixe este repositório (**Code**, depois **Download ZIP**) e descompacte, ou clone com o git.
-2. Abra `esboco-planner/index.html` no Chrome ou no Edge.
-
-Não instala nada, funciona sem internet e os dados ficam no seu navegador (faça cópias em Ajustes, Seus dados). Detalhes no [LEIA-ME do Caderno](esboco-planner/LEIA-ME.md). Testes: `node --test "esboco-planner/tests/*.test.js"`.
-
 ## Licenças
 
-O código deste repositório é distribuído sob a licença MIT (arquivo [`LICENSE`](LICENSE)). As letras em `fonts/` e em `esboco-planner/fonts/` são distribuídas sob a SIL Open Font License; veja os arquivos `LICENSE-*` em cada pasta.
+O código deste repositório é distribuído sob a licença MIT (arquivo [`LICENSE`](LICENSE)). As letras em `fonts/` são distribuídas sob a SIL Open Font License; veja os arquivos `LICENSE-*` na pasta.

@@ -1,10 +1,10 @@
 # Caderno (esboço)
 
-Planner híbrido de papel e tela: planeja na tela, imprime a folha, escreve a caneta. **Isto é um esboço**: já dá para usar, mas muda bastante de uma versão para outra. Não substitui o organizador que está na raiz deste repositório.
+Planner híbrido de papel e tela: planeja na tela, imprime a folha, escreve a caneta. **Isto é um esboço**: já dá para usar, mas muda bastante de uma versão para outra.
 
 ## Abrir
 
-Baixe o repositório (botão **Code**, depois **Download ZIP**) e descompacte, ou clone com o git. Depois dê dois cliques em `index.html`, nesta pasta. Funciona no Chrome e no Edge, sem internet e sem instalar nada.
+Baixe o repositório (botão **Code**, depois **Download ZIP**) e descompacte, ou clone com o git. Depois dê dois cliques em `index.html`. Funciona no Chrome e no Edge, sem internet e sem instalar nada.
 
 ## Onde você está
 
@@ -112,7 +112,7 @@ Com duas rotinas em lista o lado direito da folha fica cheio. No espaço compact
 ## Testes
 
 ```bash
-node --test "esboco-planner/tests/*.test.js"
+node --test "tests/*.test.js"
 ```
 
 Cobre datas (inclusive a distância em palavras), feriados (Páscoa de 2026 a 2040, feriados locais), repetição (dias da semana, fins de semana, feriados), a constância (nível de cada quadradinho, sequências, porcentagens, grade do ano, janela de 52 semanas), os lembretes fixos (criar, marcar, contar, nomear os quadradinhos, lista numerada a partir de 7, limpar dados ruins, cópia de segurança) e mover o dia (juntar, desfazer, recusar).

@@ -1,53 +1,63 @@
+/* Fontes locais. Manrope na interface e na lista (legível pequeno, números alinhados),
+   Fraunces nos títulos de data e de bolha (a voz de caderno impresso). */
 @font-face { font-family: 'Manrope'; src: url('../fonts/manrope.woff2') format('woff2'); font-weight: 200 800; font-display: swap; }
 @font-face { font-family: 'Instrument Sans'; src: url('../fonts/instrument-sans.woff2') format('woff2'); font-weight: 400 700; font-display: swap; }
 @font-face { font-family: 'Fraunces'; src: url('../fonts/fraunces.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
 
-:root {
-  --accent: #f2b872;
-  --on-accent: #2a1a07;
-  --font: 'Manrope', 'Segoe UI', system-ui, sans-serif;
-  --font-scale: 100%;
-  --radius: 20px;
-  --radius-sm: 12px;
-  --ease: cubic-bezier(.2, .7, .2, 1);
-}
+@layer reset, tokens, base, layout, components, responsive;
 
-:root[data-theme='dark'] {
-  color-scheme: dark;
-  --text: #eef2f1;
-  --muted: rgba(238, 242, 241, .62);
-  --faint: rgba(238, 242, 241, .36);
-  --glass: rgba(16, 24, 27, .55);
-  --glass-strong: rgba(18, 26, 30, .92);
-  --line: rgba(255, 255, 255, .09);
-  --hover: rgba(255, 255, 255, .07);
-  --field: rgba(255, 255, 255, .07);
-  --danger: #f28b82;
-  --shadow: 0 18px 50px rgba(0, 0, 0, .35);
-  --scrim: rgba(8, 12, 14, .42);
-  --bg-solid: #0d1417;
-  --bg-gradient:
-    radial-gradient(900px 500px at 12% 0%, #1f6a68 0, transparent 62%),
-    radial-gradient(800px 560px at 95% 30%, #7a3f22 0, transparent 60%),
-    radial-gradient(700px 500px at 45% 110%, #203a63 0, transparent 65%);
-}
+@layer tokens {
+  :root {
+    --font: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+    --display: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --accent: #c93a16;
+    --on-accent: #ffffff;
+    --accent-text: #a8300f;
+    --r-sm: 4px;
+    --r-md: 8px;
+    --r-lg: 14px;
+    --ease: cubic-bezier(.2, .7, .2, 1);
+    --tag-l: .6;
+    --row: 2.1rem;
+    color-scheme: light;
+  }
 
-:root[data-theme='light'] {
-  color-scheme: light;
-  --text: #1c2526;
-  --muted: rgba(28, 37, 38, .66);
-  --faint: rgba(28, 37, 38, .4);
-  --glass: rgba(255, 255, 255, .62);
-  --glass-strong: rgba(255, 255, 255, .95);
-  --line: rgba(20, 30, 32, .1);
-  --hover: rgba(20, 30, 32, .06);
-  --field: rgba(20, 30, 32, .06);
-  --danger: #b3261e;
-  --shadow: 0 18px 50px rgba(40, 50, 60, .16);
-  --scrim: rgba(255, 255, 255, .42);
-  --bg-solid: #eef0ea;
-  --bg-gradient:
-    radial-gradient(900px 500px at 12% 0%, #bfe3dc 0, transparent 62%),
-    radial-gradient(800px 560px at 95% 30%, #f6d7bd 0, transparent 60%),
-    radial-gradient(700px 500px at 45% 110%, #cdd9f2 0, transparent 65%);
+  /* Papel: mesa em cinza de pedra, folha branca quente, tinta quase preta. */
+  :root,
+  :root[data-theme='light'] {
+    color-scheme: light;
+    --desk: #e6e4de;
+    --paper: #fffefa;
+    --ink: #1d1f24;
+    --muted: #595c64;
+    --rule: rgba(29, 31, 36, .16);
+    --rule-strong: rgba(29, 31, 36, .5);
+    --hover: rgba(29, 31, 36, .06);
+    --field: rgba(29, 31, 36, .05);
+    --danger: #a82a22;
+    --weekend: #2a5fa8;
+    --heat: #2f8d47;
+    --shadow-sheet: 0 1px 2px rgba(30, 25, 15, .1), 0 18px 36px -22px rgba(30, 25, 15, .45);
+    --shadow-pop: 0 24px 60px -20px rgba(20, 18, 12, .55);
+    --tag-l: .6;
+  }
+
+  /* Grafite: mesa quase preta, folha em cinza-carvão, tinta clara. */
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --desk: #131417;
+    --paper: #1d1f23;
+    --ink: #ebe8e1;
+    --muted: #a3a6ad;
+    --rule: rgba(235, 232, 225, .17);
+    --rule-strong: rgba(235, 232, 225, .5);
+    --hover: rgba(235, 232, 225, .08);
+    --field: rgba(235, 232, 225, .07);
+    --danger: #f08a82;
+    --weekend: #8db5ee;
+    --heat: #5cc276;
+    --shadow-sheet: 0 1px 2px rgba(0, 0, 0, .4), 0 18px 36px -22px rgba(0, 0, 0, .8);
+    --shadow-pop: 0 24px 60px -20px rgba(0, 0, 0, .85);
+    --tag-l: .74;
+  }
 }
